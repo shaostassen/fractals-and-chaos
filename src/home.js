@@ -10,6 +10,10 @@ const AREAS = [
     name: 'Chaos',
     intro: 'Deterministic systems where a difference in the tenth decimal place grows until it decides everything.',
   },
+  {
+    name: 'Patterns',
+    intro: 'Simple local rules, applied everywhere at once, that organize themselves into spots, stripes and moving creatures.',
+  },
 ];
 
 export function renderHome(root, demos) {
@@ -18,7 +22,8 @@ export function renderHome(root, demos) {
       el('p', { class: 'eyebrow' }, 'Real-time mathematics'),
       el('h1', {}, 'Fractals & Chaos'),
       el('p', { class: 'lede' }, 'Interactive experiments that run live on your graphics card. Pick one, then drag, zoom and change the rules.')),
-    AREAS.map((area) => el('section', { class: 'area', 'aria-labelledby': `area-${area.name}` },
+    // Skip areas that have no demos yet.
+    AREAS.filter((area) => demos.some((d) => d.area === area.name)).map((area) => el('section', { class: 'area', 'aria-labelledby': `area-${area.name}` },
       el('div', { class: 'area-head' },
         el('h2', { id: `area-${area.name}` }, area.name),
         el('p', {}, area.intro)),
@@ -27,9 +32,11 @@ export function renderHome(root, demos) {
       el('p', {}, 'WebGL 2 and Canvas. No libraries. Works with mouse, touch and keyboard.'))));
 }
 
-// One row per section on wide screens: as many columns as cards.
+// As many columns as cards, up to 4; 5 or 6 cards use 3 columns so no
+// card sits alone in a row.
 function cards(list) {
-  return el('div', { class: 'cards', style: { '--cols': String(Math.min(4, list.length)) } }, list.map(card));
+  const cols = list.length <= 4 ? list.length : 3;
+  return el('div', { class: 'cards', style: { '--cols': String(cols) } }, list.map(card));
 }
 
 function card(demo) {

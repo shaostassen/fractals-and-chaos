@@ -29,7 +29,7 @@ const SYSTEMS = [
     ],
     f: (x, y, z, p, o) => { o[0] = -y - z; o[1] = x + p.a * y; o[2] = p.b + z * (x - p.c); },
     dt: 0.012, center: [0, 0, 6], scale: 1 / 13, seed: [1, 1, 0], lyapunov: 0.071,
-    about: 'Otto Rössler designed this in 1976 as the simplest possible chaotic flow, with a single nonlinear term (zx). Orbits spiral outward in the flat x–y plane, then get flung upward and folded back to the centre. Stretching and folding, repeated forever, is the basic recipe of chaos. Lower c to about 4 to watch the period-doubling route into chaos.',
+    about: 'Otto Rössler designed this in 1976 as the simplest possible chaotic flow, with a single nonlinear term (zx). Orbits spiral outward in the flat x–y plane, then get flung upward and folded back to the center. Stretching and folding, repeated forever, is the basic recipe of chaos. Lower c to about 4 to watch the period-doubling route into chaos.',
   },
   {
     id: 'aizawa', name: 'Aizawa', formula: 'ż = c + az − z³/3 − (x² + y²)(1 + ez) + fzx³',

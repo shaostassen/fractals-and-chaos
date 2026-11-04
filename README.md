@@ -15,6 +15,7 @@ Demos in three areas, all with mouse, touch and keyboard controls.
 | Chaos | **Three-Body Problem** | Figure-eight, Lagrange triangle, 2013 periodic orbits, the Pythagorean problem and random setups, raced against a twin started 10⁻⁹ away |
 | Chaos | **Bifurcation Diagram** | Logistic, sine and Gauss maps; zoomable; cobweb plot and Lyapunov exponent for any *r* |
 | Patterns | **Reaction–Diffusion** | Gray–Scott chemicals on the GPU: coral, dividing cells, worms, mazes and chaotic waves. Paint with chemical V, or open Pearson's parameter map, where every point runs its own (F, k), and click to pick one |
+| Patterns | **Life & Lenia** | Conway's Game of Life (and HighLife, Day & Night, Seeds, Maze, Brian's Brain) and Bert Chan's continuous Lenia on the GPU: stamp gliders and guns, paint cells, watch the Orbium creature glide |
 
 Each demo has a "What am I looking at?" section explaining the math.
 
@@ -51,7 +52,7 @@ src/demos/
   mandelbrot/              perturbation renderer, reference orbit, locations
   julia.js  zoo.js  mandelbulb.js  ifs.js
   attractors.js  pendulums.js  threebody.js  bifurcation.js
-  reaction-diffusion.js
+  reaction-diffusion.js  life.js
 scripts/build.mjs          esbuild bundle + dev server
 scripts/thumbs.cjs         preview image generator
 assets/thumbs/             preview images
@@ -111,7 +112,15 @@ because dt·D<sub>u</sub>·1.6 < 2. The parameter map plots k linearly and F on 
 scale so the low-F wave regimes get room. Without float render targets, u and v are stored
 as 16-bit fixed point in RGBA8.
 
+**Life and Lenia.** Life updates every cell at once from its eight neighbours: B3/S23 means
+a dead cell is born with exactly 3 live neighbours and a live cell survives with 2 or 3. It
+runs as a fragment-shader pass over two ping-pong textures that wrap at the edges, and was
+checked cell-for-cell against a CPU reference for all six rules. Lenia makes everything
+continuous: states in [0, 1], a smooth ring kernel K(r) ∝ exp(4 − 1/(r(1 − r))) normalized to
+sum to 1, and A ← clip(A + Δt·G(K∗A), 0, 1) with G(u) = 2·exp(−(u − μ)²/2σ²) − 1. Orbium
+(R = 13, μ = 0.15, σ = 0.015, Δt = 0.1) keeps its mass and glides about 0.6 cells per step.
+
 ## Ideas for going further
 
 - Arbitrary-precision reference orbit for the Mandelbrot set beyond 10¹² ×
-- IFS fractals (Barnsley fern), L-system plants
+- L-system plants, hyperbolic tilings, Fourier epicycles

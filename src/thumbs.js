@@ -9,6 +9,7 @@ import attractors from '../assets/thumbs/attractors.jpg';
 import pendulums from '../assets/thumbs/pendulums.jpg';
 import threeBody from '../assets/thumbs/three-body.jpg';
 import bifurcation from '../assets/thumbs/bifurcation.jpg';
+import life from '../assets/thumbs/life.jpg';
 import reactionDiffusion from '../assets/thumbs/reaction-diffusion.jpg';
 
 export const THUMBS = {
@@ -21,5 +22,6 @@ export const THUMBS = {
   'pendulums': pendulums,
   'three-body': threeBody,
   'bifurcation': bifurcation,
+  'life': life,
   'reaction-diffusion': reactionDiffusion,
 };

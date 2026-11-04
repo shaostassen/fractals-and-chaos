@@ -33,6 +33,7 @@ const SHOTS = {
   'three-body': { wait: 8000 },
   bifurcation: { wait: 5000 },
   // Coarse cells and top speed so coral grows within the wait, even in software rendering.
+  life: { wait: 2500 },
   'reaction-diffusion': {
     wait: 25000,
     setup: (p) => p.evaluate(() => {

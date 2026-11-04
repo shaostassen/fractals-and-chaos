@@ -111,8 +111,8 @@ export default {
       ),
       note('Drag to pan. Scroll or pinch to zoom. Double-click zooms in, Shift+double-click zooms out. Keys: arrows, <kbd>+</kbd> <kbd>−</kbd>, <kbd>Space</kbd> tour, <kbd>R</kbd> reset, <kbd>H</kbd> panel.'),
       about(`<p>Each point <i>c</i> of the plane is tested: start at <i>z</i> = 0 and repeat <i>z</i> → <i>z</i>² + <i>c</i>. If <i>z</i> stays bounded forever, <i>c</i> is in the set (black). Otherwise the color shows how fast it escaped.</p>
-        <p>Graphics cards compute in 32-bit floats, which blur out near 10⁵× zoom. Here the CPU computes one orbit at the screen centre in 64-bit precision, and the GPU only tracks each pixel's small difference from it (perturbation theory). That pushes the limit to about 10¹²×.</p>
-        <p>"Julia set here" opens the Julia set for the point at the centre of the screen.</p>`),
+        <p>Graphics cards compute in 32-bit floats, which blur out near 10⁵× zoom. Here the CPU computes one orbit at the screen center in 64-bit precision, and the GPU only tracks each pixel's small difference from it (perturbation theory). That pushes the limit to about 10¹²×.</p>
+        <p>"Julia set here" opens the Julia set for the point at the center of the screen.</p>`),
     );
 
     function syncIter() {

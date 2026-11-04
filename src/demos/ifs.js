@@ -77,9 +77,9 @@ const RULES = [
 
 const EXTRAS = [
   { value: 'none', label: 'Corners only' },
-  { value: 'centre', label: 'Corners and centre' },
+  { value: 'centre', label: 'Corners and center' },
   { value: 'mid', label: 'Corners and edge midpoints' },
-  { value: 'both', label: 'Corners, midpoints and centre' },
+  { value: 'both', label: 'Corners, midpoints and center' },
 ];
 
 const COLORINGS = [
@@ -632,7 +632,7 @@ export default {
         if (state.extra === 'mid' || state.extra === 'both') {
           parts.push(el('br'), ...Array.from({ length: n }, (_, i) => sw(n + i)), ' edge midpoints');
         }
-        if (state.extra === 'centre' || state.extra === 'both') parts.push(el('br'), sw(sys.k - 1), ' centre');
+        if (state.extra === 'centre' || state.extra === 'both') parts.push(el('br'), sw(sys.k - 1), ' center');
         parts.push(el('br'), `Each map moves ${state.ratio.toFixed(3)} of the way to its target, chosen with equal odds.`);
       }
       legend.replaceChildren(...parts);

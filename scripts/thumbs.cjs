@@ -32,6 +32,19 @@ const SHOTS = {
   pendulums: { wait: 6500 },
   'three-body': { wait: 8000 },
   bifurcation: { wait: 5000 },
+  // Coarse cells and top speed so coral grows within the wait, even in software rendering.
+  'reaction-diffusion': {
+    wait: 25000,
+    setup: (p) => p.evaluate(() => {
+      const set = (label, v) => {
+        const f = [...document.querySelectorAll('.panel .field')].find((x) => x.querySelector('.label')?.textContent.startsWith(label));
+        f.querySelector('input').value = v;
+        f.querySelector('input').dispatchEvent(new Event('input'));
+      };
+      set('Cell size', 4);
+      set('Speed', 40);
+    }),
+  },
 };
 
 (async () => {

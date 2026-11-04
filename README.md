@@ -14,6 +14,7 @@ Demos in three areas, all with mouse, touch and keyboard controls.
 | Chaos | **Double Pendulums** | Up to 2,000 pendulums started 10⁻⁶ rad apart; drag to pose; live divergence readout |
 | Chaos | **Three-Body Problem** | Figure-eight, Lagrange triangle, 2013 periodic orbits, the Pythagorean problem and random setups, raced against a twin started 10⁻⁹ away |
 | Chaos | **Bifurcation Diagram** | Logistic, sine and Gauss maps; zoomable; cobweb plot and Lyapunov exponent for any *r* |
+| Patterns | **Reaction–Diffusion** | Gray–Scott chemicals on the GPU: coral, dividing cells, worms, mazes and chaotic waves. Paint with chemical V, or open Pearson's parameter map, where every point runs its own (F, k), and click to pick one |
 
 Each demo has a "What am I looking at?" section explaining the math.
 
@@ -50,6 +51,7 @@ src/demos/
   mandelbrot/              perturbation renderer, reference orbit, locations
   julia.js  zoo.js  mandelbulb.js  ifs.js
   attractors.js  pendulums.js  threebody.js  bifurcation.js
+  reaction-diffusion.js
 scripts/build.mjs          esbuild bundle + dev server
 scripts/thumbs.cjs         preview image generator
 assets/thumbs/             preview images
@@ -101,8 +103,15 @@ accuracy is too low.
 visited values are binned into a density image (log-scaled). The strip along the bottom
 is the Lyapunov exponent, the average of `log|f′(x)|` along the orbit: positive means chaos.
 
+**Reaction–diffusion.** Two chemicals follow u′ = D<sub>u</sub>∇²u − uv² + F(1 − u) and
+v′ = D<sub>v</sub>∇²v + uv² − (F + k)v, simulated in float textures on the GPU. It uses Karl Sims's
+units: grid spacing 1, time step 1, D<sub>u</sub> = 1, D<sub>v</sub> = 0.5, and a 9-point Laplacian
+(−1 centre, 0.2 edges, 0.05 corners; the weights sum to zero). Explicit Euler is stable
+because dt·D<sub>u</sub>·1.6 < 2. The parameter map plots k linearly and F on a square-root
+scale so the low-F wave regimes get room. Without float render targets, u and v are stored
+as 16-bit fixed point in RGBA8.
+
 ## Ideas for going further
 
 - Arbitrary-precision reference orbit for the Mandelbrot set beyond 10¹² ×
 - IFS fractals (Barnsley fern), L-system plants
-- Reaction–diffusion and other pattern-forming systems

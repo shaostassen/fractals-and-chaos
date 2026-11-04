@@ -1,7 +1,7 @@
 # Fractals & Chaos
 
 Interactive mathematics that runs live in the browser on the GPU (WebGL 2 and Canvas).
-Eight demos in two areas, all with mouse, touch and keyboard controls.
+Demos in three areas, all with mouse, touch and keyboard controls.
 
 | Area | Demo | What it shows |
 | --- | --- | --- |
@@ -9,6 +9,7 @@ Eight demos in two areas, all with mouse, touch and keyboard controls.
 | Fractals | **Julia Sets** | Pick *c* on a live Mandelbrot map; animate *c*; connected vs. dust readout |
 | Fractals | **Fractal Zoo** | Burning Ship, Tricorn, Multibrot (any power, with morphing), Newton fractals |
 | Fractals | **Mandelbulb** | Ray-marched 3D fractal with soft shadows, ambient occlusion, orbit-trap color |
+| Fractals | **Chaos Game & IFS** | Jump part of the way to a random corner, millions of times, and exact fractals appear: Sierpinski triangle and carpet, restricted chaos games, Barnsley fern, Heighway dragon. Drag the corners, color each point by the map that placed it, or step through single jumps |
 | Chaos | **Strange Attractors** | Lorenz, Rössler, Aizawa, Thomas, Halvorsen with up to 60,000 particles and a butterfly-effect mode |
 | Chaos | **Double Pendulums** | Up to 2,000 pendulums started 10⁻⁶ rad apart; drag to pose; live divergence readout |
 | Chaos | **Three-Body Problem** | Figure-eight, Lagrange triangle, 2013 periodic orbits, the Pythagorean problem and random setups, raced against a twin started 10⁻⁹ away |
@@ -47,7 +48,7 @@ src/shared/
   palettes.js              color palettes (CPU and GLSL)
 src/demos/
   mandelbrot/              perturbation renderer, reference orbit, locations
-  julia.js  zoo.js  mandelbulb.js
+  julia.js  zoo.js  mandelbulb.js  ifs.js
   attractors.js  pendulums.js  threebody.js  bifurcation.js
 scripts/build.mjs          esbuild bundle + dev server
 scripts/thumbs.cjs         preview image generator
@@ -73,6 +74,15 @@ when frames take longer than about 30 ms, then draw one sharp frame when you sto
 
 **Mandelbulb.** White–Nylander power formula in spherical coordinates, rendered by sphere
 tracing against its distance estimate `0.5·log r·r / |dr|`.
+
+**Chaos game and IFS.** Each preset is a set of contracting affine maps
+f<sub>i</sub>(x) = A<sub>i</sub>x + b<sub>i</sub>; "jump a fraction r of the way to corner v<sub>i</sub>" is
+f<sub>i</sub>(x) = (1 − r)x + r·v<sub>i</sub>. Hutchinson's theorem (1981) says the maps have exactly one
+non-empty compact set A with A = ∪ f<sub>i</sub>(A), the attractor. Every jump shrinks the distance
+to A, whichever map is picked, so after a short burn-in each point lies on A to within a
+pixel. The probabilities change only the density, not the shape. Coloring by the last map
+shows the decomposition A = ∪ f<sub>i</sub>(A) directly. Restricted games (such as "never the same
+corner twice") forbid some pairs of maps, which removes second-level copies.
 
 **Attractors.** Fourth-order Runge–Kutta on the CPU (64-bit), points drawn additively
 into a half-float buffer that fades each frame for trails, then tone-mapped.

@@ -88,7 +88,7 @@ const COLORINGS = [
   { value: 'map2', label: 'Last two maps: copies of copies' },
 ];
 
-const MAX_PIXELS = 3.2e6; // caps buffer memory: up to 16 bytes per pixel when colouring by map
+const MAX_PIXELS = 3.2e6; // caps buffer memory: up to 16 bytes per pixel when coloring by map
 const CAP = 3e8; // stop accumulating here; the picture no longer changes visibly
 const TRAIL = 60000; // points kept for "Step slowly"
 const FRAME_MS = 9; // time spent iterating per frame
@@ -104,7 +104,7 @@ function hsl(h, s, l) {
   return [f(0), f(8), f(4)];
 }
 
-// Colour of a point that map t put there, after map p. One hue sector per map;
+// Color of a point that map t put there, after map p. One hue sector per map;
 // with two levels the sector is split again by the previous map.
 function mapColor(t, p, k, depth) {
   const sub = k > 1 ? p / (k - 1) : 0.5;
@@ -257,11 +257,11 @@ export default {
       return b;
     }
 
-    // ---- colours
+    // ---- colors
     let lut = null; // density → packed RGBA (little-endian)
     let mapRgb = null; // per (map, previous map), 0..255
-    let mapCss = []; // same, as CSS colours for the slow-mode dots
-    let legendCss = []; // one colour per map
+    let mapCss = []; // same, as CSS colors for the slow-mode dots
+    let legendCss = []; // one color per map
     let dotCss = '';
 
     function buildLut() {
@@ -568,7 +568,7 @@ export default {
     const legend = el('p', { class: 'hint' });
     const legendField = el('div', { class: 'field' },
       el('div', { class: 'label-row' }, el('span', { class: 'label' }, 'Maps')), legend);
-    const colorSel = select({ label: 'Colour by', options: COLORINGS, value: 'density', onChange: (v) => setColor(v) });
+    const colorSel = select({ label: 'Color by', options: COLORINGS, value: 'density', onChange: (v) => setColor(v) });
     const slowBtn = button({ label: 'Step slowly', primary: true, onClick: () => setSlow(!slow.on) });
     const rateField = slider({
       label: 'Jumps per second', min: 0, max: 100, value: 11,
@@ -578,8 +578,8 @@ export default {
     rateField.hidden = true;
     const aboutBox = about(`<p><b>The chaos game.</b> Mark three corners and start anywhere. Pick a corner at random and jump halfway towards it. Repeat forever, plotting every point. Out of pure randomness comes an exact Sierpinski triangle, and nothing ever lands in the empty middle. Turn on "Step slowly" to watch the rule one jump at a time.</p>
       <p><b>Why randomness gives an exact shape.</b> "Jump halfway to corner <i>i</i>" is a map <i>f<sub>i</sub></i> that shrinks the whole plane by half towards that corner. The Sierpinski triangle <i>S</i> is the one shape made of its own three half-size copies: <i>S</i> = <i>f</i><sub>1</sub>(<i>S</i>) ∪ <i>f</i><sub>2</sub>(<i>S</i>) ∪ <i>f</i><sub>3</sub>(<i>S</i>). Hutchinson proved in 1981 that any finite set of shrinking maps has exactly one such shape, its attractor. Every jump halves the distance to <i>S</i>, whichever corner is picked, so after a few jumps the point is on <i>S</i> to within a pixel. The random choices then carry it all over <i>S</i>.</p>
-      <p><b>See the copies.</b> Colour by "Last map" paints each point by the map that put it there. The picture splits into smaller copies of itself, one per map. "Last two maps" splits every copy again.</p>
-      <p><b>The fern</b> is just four affine maps, each a stretch, turn and shift. One squashes everything onto the stem. One makes a copy of the whole fern, slightly smaller and tilted, and that copy is everything above the lowest pair of leaflets. The other two make those leaflets. With guides on, the coloured boxes show where each map sends the fern's bounding box. The probabilities only decide how fast each part fills in, not the shape.</p>
+      <p><b>See the copies.</b> Color by "Last map" paints each point by the map that put it there. The picture splits into smaller copies of itself, one per map. "Last two maps" splits every copy again.</p>
+      <p><b>The fern</b> is just four affine maps, each a stretch, turn and shift. One squashes everything onto the stem. One makes a copy of the whole fern, slightly smaller and tilted, and that copy is everything above the lowest pair of leaflets. The other two make those leaflets. With guides on, the colored boxes show where each map sends the fern's bounding box. The probabilities only decide how fast each part fills in, not the shape.</p>
       <p><b>Restricted games.</b> On a square with any corner allowed, the four half-size copies tile the square exactly, so the points just fill it in. Forbid some choices, such as the same corner twice in a row, and certain copies-of-copies can no longer occur. Holes appear, and a new fractal emerges.</p>`);
 
     panel.add(
@@ -595,7 +595,7 @@ export default {
         button({ label: 'Restart', onClick: () => { if (slow.on) setSlow(true); else needsRestart = true; } }),
         button({ label: 'Reset view', onClick: () => fitView() }),
       ),
-      note('In chaos-game presets, drag a corner to move it. Drag elsewhere to pan, scroll or pinch to zoom. Keys: <kbd>Space</kbd> step slowly, <kbd>C</kbd> colouring, <kbd>R</kbd> reset, <kbd>H</kbd> panel.'),
+      note('In chaos-game presets, drag a corner to move it. Drag elsewhere to pan, scroll or pinch to zoom. Keys: <kbd>Space</kbd> step slowly, <kbd>C</kbd> coloring, <kbd>R</kbd> reset, <kbd>H</kbd> panel.'),
       aboutBox,
     );
 

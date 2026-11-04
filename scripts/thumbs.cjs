@@ -15,6 +15,19 @@ const SHOTS = {
   julia: { wait: 2500 },
   zoo: { wait: 2500, setup: (p) => p.selectOption('.panel select >> nth=1', '1') },
   mandelbulb: { wait: 15000, setup: (p) => p.keyboard.press(' ') },
+  // Fern colored by its four maps, guides off. Blur first: keys are ignored
+  // while a select has focus. R refits the view after the panel is hidden.
+  ifs: {
+    wait: 4000,
+    setup: async (p) => {
+      await p.selectOption('.panel select >> nth=0', '10');
+      await p.selectOption('.panel select >> nth=-1', 'map');
+      await p.click('text=Show guides');
+      await p.evaluate(() => document.activeElement.blur());
+      await p.keyboard.press('h');
+      await p.keyboard.press('r');
+    },
+  },
   attractors: { wait: 7000 },
   pendulums: { wait: 6500 },
   'three-body': { wait: 8000 },

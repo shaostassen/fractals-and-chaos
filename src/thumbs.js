@@ -4,6 +4,7 @@ import mandelbrot from '../assets/thumbs/mandelbrot.jpg';
 import julia from '../assets/thumbs/julia.jpg';
 import zoo from '../assets/thumbs/zoo.jpg';
 import mandelbulb from '../assets/thumbs/mandelbulb.jpg';
+import ifs from '../assets/thumbs/ifs.jpg';
 import attractors from '../assets/thumbs/attractors.jpg';
 import pendulums from '../assets/thumbs/pendulums.jpg';
 import threeBody from '../assets/thumbs/three-body.jpg';
@@ -14,6 +15,7 @@ export const THUMBS = {
   'julia': julia,
   'zoo': zoo,
   'mandelbulb': mandelbulb,
+  'ifs': ifs,
   'attractors': attractors,
   'pendulums': pendulums,
   'three-body': threeBody,

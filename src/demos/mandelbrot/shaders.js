@@ -10,14 +10,9 @@
 // "Rebasing" (resetting to the start of the reference orbit when the pixel's
 // own z gets smaller than dz) avoids the usual perturbation glitches.
 
-export const ORBIT_TEX_WIDTH = 2048;
+import { PALETTE_GLSL } from '../../shared/palettes.js';
 
-export const vertexSource = `#version 300 es
-void main() {
-  // One triangle that covers the whole screen; no vertex buffers needed.
-  vec2 p = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2));
-  gl_Position = vec4(p * 2.0 - 1.0, 0.0, 1.0);
-}`;
+export const ORBIT_TEX_WIDTH = 2048;
 
 export const fragmentSource = `#version 300 es
 precision highp float;
@@ -28,7 +23,6 @@ uniform int uOrbitLen;      // number of valid entries in uOrbit
 uniform int uMaxIter;
 uniform vec2 uResolution;   // drawing buffer size in pixels
 uniform float uPixelSize;   // complex-plane units per pixel
-uniform vec3 uStops[5];     // palette, cyclic
 uniform float uDensity;
 uniform float uOffset;
 uniform float uShading;     // 0 = off, 1 = edge shading on
@@ -46,13 +40,7 @@ vec2 cmul(vec2 a, vec2 b) {
   return vec2(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
 }
 
-vec3 palette(float t) {
-  t = fract(t) * 5.0;
-  int i = int(t);
-  float f = t - float(i);
-  f = f * f * (3.0 - 2.0 * f);
-  return mix(uStops[i], uStops[(i + 1) % 5], f);
-}
+${PALETTE_GLSL}
 
 void main() {
   vec2 dc = (gl_FragCoord.xy - 0.5 * uResolution) * uPixelSize;

@@ -1,12 +1,16 @@
 {
-  "name": "mandelbrot-explorer",
+  "name": "fractals-and-chaos",
   "version": "1.0.0",
-  "description": "Real-time Mandelbrot set renderer in WebGL 2 with deep zoom via perturbation.",
+  "description": "Real-time fractal and chaos demos in WebGL 2: deep-zoom Mandelbrot, Julia sets, Mandelbulb, strange attractors, double pendulums and more.",
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "node scripts/serve.mjs",
-    "build": "node scripts/build.mjs"
+    "start": "node scripts/build.mjs --serve",
+    "build": "node scripts/build.mjs",
+    "thumbs": "node scripts/thumbs.cjs"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
 }

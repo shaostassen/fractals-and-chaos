@@ -3,82 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mandelbrot Explorer</title>
+<title>Fractals & Chaos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;600;700&family=Chivo+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;600;700;800&family=Chivo+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="src/style.css">
 </head>
 <body>
-<!-- BODY -->
-<canvas id="view" aria-label="Mandelbrot set. Drag to pan, scroll or pinch to zoom."></canvas>
-
-<dl class="hud" aria-live="off">
-  <div><dt>Re</dt><dd id="hud-re">—</dd></div>
-  <div><dt>Im</dt><dd id="hud-im">—</dd></div>
-  <div><dt>Zoom</dt><dd id="hud-zoom">—</dd></div>
-  <div><dt>Iter</dt><dd id="hud-iter">—</dd></div>
-  <div><dt>Speed</dt><dd id="hud-speed">—</dd></div>
-  <p id="hud-limit" class="limit" hidden>Deepest zoom reached: 64-bit precision limit</p>
-</dl>
-
-<aside class="panel" id="panel" aria-label="Render controls">
-  <header class="panel-head">
-    <h1>Mandelbrot <span class="formula">z<sub>n+1</sub> = z<sub>n</sub>² + c</span></h1>
-    <button type="button" id="panel-close" class="icon-btn" aria-label="Hide controls" title="Hide controls (H)">×</button>
-  </header>
-
-  <div class="field">
-    <label class="label" for="preset">Location</label>
-    <select id="preset"></select>
-  </div>
-
-  <div class="field">
-    <div class="label-row">
-      <label class="label" for="iter">Max iterations</label>
-      <output id="iter-out" for="iter">—</output>
-    </div>
-    <input type="range" id="iter" min="0" max="1000" step="1">
-    <label class="check"><input type="checkbox" id="iter-auto" checked> Increase with zoom depth</label>
-  </div>
-
-  <div class="field">
-    <div class="label-row"><span class="label">Palette</span><span id="palette-name" class="value"></span></div>
-    <div class="swatches" id="swatches" role="radiogroup" aria-label="Palette"></div>
-  </div>
-
-  <div class="field">
-    <label class="label" for="density">Color bands</label>
-    <input type="range" id="density" min="5" max="150" step="1">
-  </div>
-
-  <div class="field">
-    <label class="label" for="offset">Color shift</label>
-    <input type="range" id="offset" min="0" max="1000" step="1" value="0">
-  </div>
-
-  <div class="toggles">
-    <label class="check"><input type="checkbox" id="shade" checked> Edge shading</label>
-    <label class="check"><input type="checkbox" id="cycle"> Cycle colors</label>
-  </div>
-
-  <div class="actions">
-    <button type="button" id="tour" class="btn primary" aria-pressed="false">Start zoom tour</button>
-    <button type="button" id="reset" class="btn">Reset view</button>
-    <button type="button" id="copy" class="btn">Copy coordinates</button>
-  </div>
-
-  <p class="hint">Drag to pan. Scroll or pinch to zoom. Double-click zooms in, Shift+double-click zooms out.
-    Keys: arrows pan, <kbd>+</kbd> <kbd>−</kbd> zoom, <kbd>Space</kbd> tour, <kbd>R</kbd> reset, <kbd>H</kbd> hide panel.</p>
-</aside>
-
-<button type="button" id="panel-open" class="btn floating" hidden>Controls</button>
-
-<div class="error" id="error" role="alert" hidden>
-  <h2>Can't render</h2>
-  <p id="error-text"></p>
-</div>
-<!-- /BODY -->
-<script type="module" src="src/main.js"></script>
+<div id="app"></div>
+<script src="app.js"></script>
 </body>
 </html>

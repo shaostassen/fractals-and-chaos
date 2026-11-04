@@ -1,0 +1,12 @@
+{
+  "name": "mandelbrot-explorer",
+  "version": "1.0.0",
+  "description": "Real-time Mandelbrot set renderer in WebGL 2 with deep zoom via perturbation.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "license": "MIT"
+}

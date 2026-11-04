@@ -7,6 +7,7 @@ import attractors from './attractors.js';
 import pendulums from './pendulums.js';
 import threeBody from './threebody.js';
 import bifurcation from './bifurcation.js';
+import reactionDiffusion from './reaction-diffusion.js';
 
 // Order here is the order on the home page.
-export const DEMOS = [mandelbrot, julia, zoo, mandelbulb, ifs, attractors, pendulums, threeBody, bifurcation];
+export const DEMOS = [mandelbrot, julia, zoo, mandelbulb, ifs, attractors, pendulums, threeBody, bifurcation, reactionDiffusion];

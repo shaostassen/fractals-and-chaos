@@ -1,7 +1,7 @@
 # Fractals & Chaos
 
 Interactive mathematics that runs live in the browser on the GPU (WebGL 2 and Canvas).
-Seven demos in two areas, all with mouse, touch and keyboard controls.
+Eight demos in two areas, all with mouse, touch and keyboard controls.
 
 | Area | Demo | What it shows |
 | --- | --- | --- |
@@ -11,6 +11,7 @@ Seven demos in two areas, all with mouse, touch and keyboard controls.
 | Fractals | **Mandelbulb** | Ray-marched 3D fractal with soft shadows, ambient occlusion, orbit-trap color |
 | Chaos | **Strange Attractors** | Lorenz, Rössler, Aizawa, Thomas, Halvorsen with up to 60,000 particles and a butterfly-effect mode |
 | Chaos | **Double Pendulums** | Up to 2,000 pendulums started 10⁻⁶ rad apart; drag to pose; live divergence readout |
+| Chaos | **Three-Body Problem** | Figure-eight, Lagrange triangle, 2013 periodic orbits, the Pythagorean problem and random setups, raced against a twin started 10⁻⁹ away |
 | Chaos | **Bifurcation Diagram** | Logistic, sine and Gauss maps; zoomable; cobweb plot and Lyapunov exponent for any *r* |
 
 Each demo has a "What am I looking at?" section explaining the math.
@@ -47,7 +48,7 @@ src/shared/
 src/demos/
   mandelbrot/              perturbation renderer, reference orbit, locations
   julia.js  zoo.js  mandelbulb.js
-  attractors.js  pendulums.js  bifurcation.js
+  attractors.js  pendulums.js  threebody.js  bifurcation.js
 scripts/build.mjs          esbuild bundle + dev server
 scripts/thumbs.cjs         preview image generator
 assets/thumbs/             preview images
@@ -79,6 +80,13 @@ into a half-float buffer that fades each frame for trails, then tone-mapped.
 **Pendulums.** Equal masses and rods, standard Lagrangian equations of motion,
 RK4 with a fixed 1/300 s step.
 
+**Three-body problem.** Planar Newtonian gravity (G = 1) in the centre-of-mass frame,
+RK4 with an adaptive step: a fraction of the tightest pair's free-fall time, √(r³/(m₁ + m₂)).
+That keeps close encounters accurate. With the default setting the Pythagorean problem
+conserves energy to about 10⁻⁸ and reproduces the known outcome (mass 3 ejected at t ≈ 64,
+masses 4 and 5 leave as a binary). The readout shows the energy error so you can see when
+accuracy is too low.
+
 **Bifurcation.** For each pixel column the map is iterated thousands of times and the
 visited values are binned into a density image (log-scaled). The strip along the bottom
 is the Lyapunov exponent, the average of `log|f′(x)|` along the orbit: positive means chaos.
@@ -86,5 +94,5 @@ is the Lyapunov exponent, the average of `log|f′(x)|` along the orbit: positiv
 ## Ideas for going further
 
 - Arbitrary-precision reference orbit for the Mandelbrot set beyond 10¹² ×
-- Three-body problem, IFS fractals (Barnsley fern), L-system plants
+- IFS fractals (Barnsley fern), L-system plants
 - Reaction–diffusion and other pattern-forming systems

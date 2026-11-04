@@ -1,6 +1,7 @@
 // Regenerates the home-page preview images in assets/thumbs/ by opening each
 // demo in headless Chromium. Needs Playwright with Chromium installed
 // (npm i -D playwright && npx playwright install chromium). Run `npm run build` first.
+// Pass demo ids to regenerate only those: node scripts/thumbs.cjs three-body
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
@@ -16,13 +17,15 @@ const SHOTS = {
   mandelbulb: { wait: 15000, setup: (p) => p.keyboard.press(' ') },
   attractors: { wait: 7000 },
   pendulums: { wait: 6500 },
+  'three-body': { wait: 8000 },
   bifurcation: { wait: 5000 },
 };
 
 (async () => {
   const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
-  const imports = [];
+  const only = process.argv.slice(2);
   for (const [id, shot] of Object.entries(SHOTS)) {
+    if (only.length && !only.includes(id)) continue;
     const tab = await browser.newPage({ viewport: { width: 800, height: 500 } });
     await tab.goto(`${page}#${id}`);
     await tab.waitForTimeout(500);
@@ -32,15 +35,19 @@ const SHOTS = {
     const file = path.join(root, 'assets/thumbs', `${id}.jpg`);
     await tab.screenshot({ path: file, type: 'jpeg', quality: 72 });
     console.log(`${id}.jpg ${(fs.statSync(file).size / 1024).toFixed(0)} KB`);
-    imports.push(id);
     await tab.close();
   }
   await browser.close();
+  // Import every preview that exists, whether or not it was regenerated now.
+  const ids = Object.keys(SHOTS).filter((id) => fs.existsSync(path.join(root, 'assets/thumbs', `${id}.jpg`)));
+  const ident = (id) => id.replace(/-(\w)/g, (_, c) => c.toUpperCase());
   const src = `// Preview images for the home page, inlined by the bundler.
 // Regenerate with: npm run thumbs
-${imports.map((id) => `import ${id} from '../assets/thumbs/${id}.jpg';`).join('\n')}
+${ids.map((id) => `import ${ident(id)} from '../assets/thumbs/${id}.jpg';`).join('\n')}
 
-export const THUMBS = { ${imports.join(', ')} };
+export const THUMBS = {
+${ids.map((id) => `  '${id}': ${ident(id)},`).join('\n')}
+};
 `;
   fs.writeFileSync(path.join(root, 'src/thumbs.js'), src);
 })();

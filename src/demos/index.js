@@ -15,6 +15,7 @@ import penrose from './penrose.js';
 import ulam from './ulam.js';
 import collatz from './collatz.js';
 import ripple from './ripple.js';
+import quantum from './quantum.js';
 
 // Order here is the order on the home page.
 export const DEMOS = [
@@ -23,5 +24,5 @@ export const DEMOS = [
   reactionDiffusion, life,
   fourier, hyperbolic, penrose,
   ulam, collatz,
-  ripple,
+  ripple, quantum,
 ];

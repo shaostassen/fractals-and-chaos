@@ -1,7 +1,7 @@
 # Fractals & Chaos
 
 Interactive mathematics that runs live in the browser on the GPU (WebGL 2 and Canvas).
-Seventeen demos in six areas (fractals, chaos, patterns, waves and physics, geometry, number
+Eighteen demos in six areas (fractals, chaos, patterns, waves and physics, geometry, number
 theory), all with
 mouse, touch and keyboard controls.
 
@@ -21,6 +21,7 @@ mouse, touch and keyboard controls.
 | Patterns | **Reaction–Diffusion** | Gray–Scott chemicals on the GPU: coral, dividing cells, worms, mazes and chaotic waves. Paint with chemical V, or open Pearson's parameter map, where every point runs its own (F, k), and click to pick one |
 | Patterns | **Life & Lenia** | Conway's Game of Life (and HighLife, Day & Night, Seeds, Maze, Brian's Brain) and Bert Chan's continuous Lenia on the GPU: stamp gliders and guns, paint cells, watch the Orbium creature glide |
 | Waves & physics | **Ripple Tank** | The wave equation on the GPU: Young's double slit, single slit, diffraction grating, two sources, a glass lens and a parabolic mirror. A detector screen plots the measured interference pattern against the Huygens prediction; draw your own walls |
+| Waves & physics | **Quantum Double Slit** | The Schrödinger equation on the GPU: an electron wave packet passes both slits and interferes with itself, while detections land one dot at a time (Born rule) and build up fringes. A which-slit detector makes them vanish |
 | Geometry | **Fourier Epicycles** | Draw any closed shape (or pick one) and up to 512 spinning circles redraw it; build up one circle at a time; exact error readout via Parseval's theorem |
 | Geometry | **Hyperbolic Tilings** | {p, q} tilings in the Poincaré disk, rendered on the GPU by reflecting each pixel into one triangle; drag to travel through the hyperbolic plane |
 | Geometry | **Penrose Tiling** | Rhombus tiling built by golden-ratio deflation; watch it grow; the thick-to-thin ratio converges to φ |
@@ -66,7 +67,7 @@ src/demos/
   julia.js  zoo.js  mandelbulb.js  ifs.js
   attractors.js  pendulums.js  threebody.js  bifurcation.js
   reaction-diffusion.js  life.js
-  fourier.js  hyperbolic.js  penrose.js  ulam.js  collatz.js  ripple.js
+  fourier.js  hyperbolic.js  penrose.js  ulam.js  collatz.js  ripple.js  quantum.js
 scripts/build.mjs          esbuild bundle + dev server
 scripts/thumbs.cjs         preview image generator
 assets/thumbs/             preview images
@@ -142,6 +143,15 @@ through them. Brightness is a running average of u². The screen's prediction is
 Huygens–Fresnel sum of cylindrical wavelets e<sup>ikr</sup>/√r from points across each opening; the
 measured fringe spacing agrees with it to within a few percent (and both differ from the
 far-field estimate λL/d, as they should for a screen this close).
+
+**Quantum double slit.** The time-dependent Schrödinger equation iψ<sub>t</sub> = −½∇²ψ (ħ = m = 1)
+solved with Visscher's staggered scheme: R ← R + Δt·HI, then I ← I − Δt·HR, stable for
+Δt < 0.5. It conserves Σ R² + I(t + Δt/2)·I(t − Δt/2), which the "Total prob." readout
+shows staying at 1. Walls force ψ = 0. Each electron's time-integrated |ψ|² along the screen
+is its detection probability; dots are drawn from it at random. With the which-slit detector
+on, each electron is assigned one slit at random and the other is closed for that run, so the
+screen shows the sum of two single-slit patterns. Fringe spacing matches a Huygens
+calculation to within a few percent for wavelengths of 12 cells or more.
 
 **Fourier epicycles.** The shape is resampled to 512 points evenly spaced along its length, and
 the discrete Fourier transform gives one circle per frequency, c<sub>k</sub>·e<sup>2πikt</sup>, drawn largest

@@ -15,6 +15,7 @@ import hyperbolic from '../assets/thumbs/hyperbolic.jpg';
 import penrose from '../assets/thumbs/penrose.jpg';
 import ulam from '../assets/thumbs/ulam.jpg';
 import collatz from '../assets/thumbs/collatz.jpg';
+import quantumSlit from '../assets/thumbs/quantum-slit.jpg';
 import ripple from '../assets/thumbs/ripple.jpg';
 import reactionDiffusion from '../assets/thumbs/reaction-diffusion.jpg';
 
@@ -34,6 +35,7 @@ export const THUMBS = {
   'penrose': penrose,
   'ulam': ulam,
   'collatz': collatz,
+  'quantum-slit': quantumSlit,
   'ripple': ripple,
   'reaction-diffusion': reactionDiffusion,
 };

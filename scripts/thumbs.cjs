@@ -50,6 +50,17 @@ const SHOTS = {
   penrose: { wait: 1500 },
   ulam: { wait: 2000, setup: (p) => p.click('text=Euler’s prime line') },
   collatz: { wait: 2500 },
+  // Enough electrons for visible fringes; hide the panel first so the scene spans the width.
+  'quantum-slit': {
+    wait: 26000,
+    setup: async (p) => {
+      const rate = p.locator('.panel .field:has-text("Electrons per second") input');
+      await rate.fill('400');
+      await rate.dispatchEvent('input');
+      await p.evaluate(() => document.activeElement.blur());
+      await p.keyboard.press('h');
+    },
+  },
   // Double slit at top speed, long enough for the fringes to form in software rendering.
   ripple: {
     wait: 20000,

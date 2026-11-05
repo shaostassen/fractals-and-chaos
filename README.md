@@ -1,7 +1,10 @@
 # Fractals & Chaos
 
 Interactive mathematics that runs live in the browser on the GPU (WebGL 2 and Canvas).
-Demos in three areas, all with mouse, touch and keyboard controls.
+Sixteen demos in five areas (fractals, chaos, patterns, geometry, number theory), all with
+mouse, touch and keyboard controls.
+
+**Live site: https://shaostassen.github.io/fractals-and-chaos/**
 
 | Area | Demo | What it shows |
 | --- | --- | --- |
@@ -35,7 +38,10 @@ npm start          # http://localhost:8080, rebuilds on reload
 npm run build      # dist/fractals-and-chaos.html, one self-contained file
 ```
 
-The built file opens directly in a browser; only the web fonts load from Google Fonts.
+The build writes two files: `dist/site/index.html`, a complete page that GitHub Pages
+publishes (see `.github/workflows/pages.yml`; it deploys on every push to `main`), and
+`dist/fractals-and-chaos.html`, the same app as a page fragment for embedding. Both are
+self-contained; only the web fonts load from Google Fonts.
 
 `npm run thumbs` regenerates the home-page preview images. It needs Playwright with
 Chromium installed, and a fresh `npm run build` first.

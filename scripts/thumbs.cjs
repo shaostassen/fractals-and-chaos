@@ -34,6 +34,22 @@ const SHOTS = {
   bifurcation: { wait: 5000 },
   // Coarse cells and top speed so coral grows within the wait, even in software rendering.
   life: { wait: 2500 },
+  // Butterfly curve with a short loop so most of the trail is drawn.
+  fourier: {
+    wait: 5000,
+    setup: async (p) => {
+      await p.selectOption('.panel select >> nth=0', '3');
+      await p.evaluate(() => {
+        const f = [...document.querySelectorAll('.panel .field')].find((x) => x.querySelector('.label')?.textContent.startsWith('Time per loop'));
+        f.querySelector('input').value = 6;
+        f.querySelector('input').dispatchEvent(new Event('input'));
+      });
+    },
+  },
+  hyperbolic: { wait: 2500 },
+  penrose: { wait: 1500 },
+  ulam: { wait: 2000, setup: (p) => p.click('text=Euler’s prime line') },
+  collatz: { wait: 2500 },
   'reaction-diffusion': {
     wait: 25000,
     setup: (p) => p.evaluate(() => {

@@ -10,6 +10,11 @@ import pendulums from '../assets/thumbs/pendulums.jpg';
 import threeBody from '../assets/thumbs/three-body.jpg';
 import bifurcation from '../assets/thumbs/bifurcation.jpg';
 import life from '../assets/thumbs/life.jpg';
+import fourier from '../assets/thumbs/fourier.jpg';
+import hyperbolic from '../assets/thumbs/hyperbolic.jpg';
+import penrose from '../assets/thumbs/penrose.jpg';
+import ulam from '../assets/thumbs/ulam.jpg';
+import collatz from '../assets/thumbs/collatz.jpg';
 import reactionDiffusion from '../assets/thumbs/reaction-diffusion.jpg';
 
 export const THUMBS = {
@@ -23,5 +28,10 @@ export const THUMBS = {
   'three-body': threeBody,
   'bifurcation': bifurcation,
   'life': life,
+  'fourier': fourier,
+  'hyperbolic': hyperbolic,
+  'penrose': penrose,
+  'ulam': ulam,
+  'collatz': collatz,
   'reaction-diffusion': reactionDiffusion,
 };

@@ -14,6 +14,14 @@ const AREAS = [
     name: 'Patterns',
     intro: 'Simple local rules, applied everywhere at once, that organize themselves into spots, stripes and moving creatures.',
   },
+  {
+    name: 'Geometry',
+    intro: 'Curves built from spinning circles, a plane with more room than ours, and tilings that never repeat.',
+  },
+  {
+    name: 'Number theory',
+    intro: 'Whole numbers hide patterns that are easy to see and, so far, impossible to explain.',
+  },
 ];
 
 export function renderHome(root, demos) {

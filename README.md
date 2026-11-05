@@ -16,6 +16,11 @@ Demos in three areas, all with mouse, touch and keyboard controls.
 | Chaos | **Bifurcation Diagram** | Logistic, sine and Gauss maps; zoomable; cobweb plot and Lyapunov exponent for any *r* |
 | Patterns | **Reaction–Diffusion** | Gray–Scott chemicals on the GPU: coral, dividing cells, worms, mazes and chaotic waves. Paint with chemical V, or open Pearson's parameter map, where every point runs its own (F, k), and click to pick one |
 | Patterns | **Life & Lenia** | Conway's Game of Life (and HighLife, Day & Night, Seeds, Maze, Brian's Brain) and Bert Chan's continuous Lenia on the GPU: stamp gliders and guns, paint cells, watch the Orbium creature glide |
+| Geometry | **Fourier Epicycles** | Draw any closed shape (or pick one) and up to 512 spinning circles redraw it; build up one circle at a time; exact error readout via Parseval's theorem |
+| Geometry | **Hyperbolic Tilings** | {p, q} tilings in the Poincaré disk, rendered on the GPU by reflecting each pixel into one triangle; drag to travel through the hyperbolic plane |
+| Geometry | **Penrose Tiling** | Rhombus tiling built by golden-ratio deflation; watch it grow; the thick-to-thin ratio converges to φ |
+| Number theory | **Ulam Prime Spiral** | Primes up to 1.4 million in Ulam's square spiral or Sacks's round one; Euler's n² + n + 41 diagonal, twin primes, divisor counts, factorization on hover |
+| Number theory | **Collatz Tree** | Every path to 1 drawn at once as a branching coral, plus the steps-to-1 plot; highlight any number's path |
 
 Each demo has a "What am I looking at?" section explaining the math.
 
@@ -53,6 +58,7 @@ src/demos/
   julia.js  zoo.js  mandelbulb.js  ifs.js
   attractors.js  pendulums.js  threebody.js  bifurcation.js
   reaction-diffusion.js  life.js
+  fourier.js  hyperbolic.js  penrose.js  ulam.js  collatz.js
 scripts/build.mjs          esbuild bundle + dev server
 scripts/thumbs.cjs         preview image generator
 assets/thumbs/             preview images
@@ -120,7 +126,33 @@ continuous: states in [0, 1], a smooth ring kernel K(r) ∝ exp(4 − 1/(r(1 −
 sum to 1, and A ← clip(A + Δt·G(K∗A), 0, 1) with G(u) = 2·exp(−(u − μ)²/2σ²) − 1. Orbium
 (R = 13, μ = 0.15, σ = 0.015, Δt = 0.1) keeps its mass and glides about 0.6 cells per step.
 
+**Fourier epicycles.** The shape is resampled to 512 points evenly spaced along its length, and
+the discrete Fourier transform gives one circle per frequency, c<sub>k</sub>·e<sup>2πikt</sup>, drawn largest
+first. By Parseval's theorem the RMS distance between the k-circle copy and the shape is
+√(Σ |c<sub>j</sub>|²) over the circles left out, which is what the error readout shows.
+
+**Hyperbolic tilings.** A {p, q} tiling splits into right triangles with angles π/p, π/q, π/2.
+In the Poincaré disk the central triangle is bounded by two lines through the origin and a
+circle orthogonal to the unit circle, with centre d = 1/√(1 − sin²(π/p)/cos²(π/q)) and
+radius d·sin(π/p)/cos(π/q). The shader reflects each pixel across those mirrors until it
+lands in that triangle; the reflection count gives the colour. Dragging composes Möbius
+translations z → (z + a)/(āz + 1), kept as a normalized 2×2 complex matrix.
+
+**Penrose tiling.** Robinson-triangle deflation: each half-rhombus is cut at golden-ratio
+points into two or three smaller ones. The thin and thick counts go (t, T) → (t + T, t + 2T),
+so their ratio runs through ratios of Fibonacci numbers toward φ. Tests check the total area
+is preserved exactly at every step.
+
+**Ulam spiral.** A smallest-prime-factor sieve up to 1.44 million gives primality and
+factorizations; a closed-form formula maps each spiral cell to its number. Starting the
+spiral at 41 puts Euler's n² + n + 41 (prime for n = 0…39) on one diagonal.
+
+**Collatz tree.** Each number is joined to its successor (n/2 or 3n + 1). Laid out from 1, a
+branch turns one way at even numbers and the other at odd ones, and segments thicken with
+the number of starting values whose paths share them. Steps to 1 are memoized through
+smaller values.
+
 ## Ideas for going further
 
 - Arbitrary-precision reference orbit for the Mandelbrot set beyond 10¹² ×
-- L-system plants, hyperbolic tilings, Fourier epicycles
+- L-system plants, Riemann zeta function, ripple tank and fluid simulation

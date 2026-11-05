@@ -50,6 +50,18 @@ const SHOTS = {
   penrose: { wait: 1500 },
   ulam: { wait: 2000, setup: (p) => p.click('text=Euler’s prime line') },
   collatz: { wait: 2500 },
+  // Double slit at top speed, long enough for the fringes to form in software rendering.
+  ripple: {
+    wait: 20000,
+    setup: async (p) => {
+      const speed = p.locator('.panel .field:has-text("Speed") input');
+      await speed.fill('12');
+      await speed.dispatchEvent('input');
+      // Hide the panel with H so the scene is laid out across the full width.
+      await p.evaluate(() => document.activeElement.blur());
+      await p.keyboard.press('h');
+    },
+  },
   'reaction-diffusion': {
     wait: 25000,
     setup: (p) => p.evaluate(() => {

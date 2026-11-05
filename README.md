@@ -1,7 +1,8 @@
 # Fractals & Chaos
 
 Interactive mathematics that runs live in the browser on the GPU (WebGL 2 and Canvas).
-Sixteen demos in five areas (fractals, chaos, patterns, geometry, number theory), all with
+Seventeen demos in six areas (fractals, chaos, patterns, waves and physics, geometry, number
+theory), all with
 mouse, touch and keyboard controls.
 
 **Live site: https://shaostassen.github.io/fractals-and-chaos/**
@@ -19,6 +20,7 @@ mouse, touch and keyboard controls.
 | Chaos | **Bifurcation Diagram** | Logistic, sine and Gauss maps; zoomable; cobweb plot and Lyapunov exponent for any *r* |
 | Patterns | **Reaction–Diffusion** | Gray–Scott chemicals on the GPU: coral, dividing cells, worms, mazes and chaotic waves. Paint with chemical V, or open Pearson's parameter map, where every point runs its own (F, k), and click to pick one |
 | Patterns | **Life & Lenia** | Conway's Game of Life (and HighLife, Day & Night, Seeds, Maze, Brian's Brain) and Bert Chan's continuous Lenia on the GPU: stamp gliders and guns, paint cells, watch the Orbium creature glide |
+| Waves & physics | **Ripple Tank** | The wave equation on the GPU: Young's double slit, single slit, diffraction grating, two sources, a glass lens and a parabolic mirror. A detector screen plots the measured interference pattern against the Huygens prediction; draw your own walls |
 | Geometry | **Fourier Epicycles** | Draw any closed shape (or pick one) and up to 512 spinning circles redraw it; build up one circle at a time; exact error readout via Parseval's theorem |
 | Geometry | **Hyperbolic Tilings** | {p, q} tilings in the Poincaré disk, rendered on the GPU by reflecting each pixel into one triangle; drag to travel through the hyperbolic plane |
 | Geometry | **Penrose Tiling** | Rhombus tiling built by golden-ratio deflation; watch it grow; the thick-to-thin ratio converges to φ |
@@ -64,7 +66,7 @@ src/demos/
   julia.js  zoo.js  mandelbulb.js  ifs.js
   attractors.js  pendulums.js  threebody.js  bifurcation.js
   reaction-diffusion.js  life.js
-  fourier.js  hyperbolic.js  penrose.js  ulam.js  collatz.js
+  fourier.js  hyperbolic.js  penrose.js  ulam.js  collatz.js  ripple.js
 scripts/build.mjs          esbuild bundle + dev server
 scripts/thumbs.cjs         preview image generator
 assets/thumbs/             preview images
@@ -132,6 +134,15 @@ continuous: states in [0, 1], a smooth ring kernel K(r) ∝ exp(4 − 1/(r(1 −
 sum to 1, and A ← clip(A + Δt·G(K∗A), 0, 1) with G(u) = 2·exp(−(u − μ)²/2σ²) − 1. Orbium
 (R = 13, μ = 0.15, σ = 0.015, Δt = 0.1) keeps its mass and glides about 0.6 cells per step.
 
+**Ripple tank.** The 2D wave equation u<sub>tt</sub> = c²∇²u on a grid, stepped on the GPU with the
+leapfrog scheme u⁺ = u + (1 − d)(u − u⁻) + (C·s)²∇²u, where C = cΔt/Δx = 0.5 (stable below
+1/√2), s is the local speed (0 in walls, 1/n in glass) and d is a damping term used only in an
+absorbing layer at the edges. Sources are "soft" (added to the field) so reflected waves pass
+through them. Brightness is a running average of u². The screen's prediction is a
+Huygens–Fresnel sum of cylindrical wavelets e<sup>ikr</sup>/√r from points across each opening; the
+measured fringe spacing agrees with it to within a few percent (and both differ from the
+far-field estimate λL/d, as they should for a screen this close).
+
 **Fourier epicycles.** The shape is resampled to 512 points evenly spaced along its length, and
 the discrete Fourier transform gives one circle per frequency, c<sub>k</sub>·e<sup>2πikt</sup>, drawn largest
 first. By Parseval's theorem the RMS distance between the k-circle copy and the shape is
@@ -161,4 +172,4 @@ smaller values.
 ## Ideas for going further
 
 - Arbitrary-precision reference orbit for the Mandelbrot set beyond 10¹² ×
-- L-system plants, Riemann zeta function, ripple tank and fluid simulation
+- L-system plants, Riemann zeta function, fluid simulation and Chladni plates

@@ -15,6 +15,10 @@ const AREAS = [
     intro: 'Simple local rules, applied everywhere at once, that organize themselves into spots, stripes and moving creatures.',
   },
   {
+    name: 'Waves & physics',
+    intro: 'The equations behind water, sound and light, solved live: waves that interfere, bend and focus.',
+  },
+  {
     name: 'Geometry',
     intro: 'Curves built from spinning circles, a plane with more room than ours, and tilings that never repeat.',
   },
@@ -41,9 +45,9 @@ export function renderHome(root, demos) {
 }
 
 // As many columns as cards, up to 4; 5 or 6 cards use 3 columns so no
-// card sits alone in a row.
+// card sits alone in a row. A lone card gets half the width, not all of it.
 function cards(list) {
-  const cols = list.length <= 4 ? list.length : 3;
+  const cols = list.length === 1 ? 2 : list.length <= 4 ? list.length : 3;
   return el('div', { class: 'cards', style: { '--cols': String(cols) } }, list.map(card));
 }
 
